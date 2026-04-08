@@ -13,12 +13,12 @@ export async function POST(request: NextRequest) {
     }
 
     const pool = getPool();
-    const [users] = await pool.execute(
-      "SELECT id, name, email, phone, cpf, birth_date, password FROM users WHERE email = ?",
+    const [users]: any = await pool.execute(
+      "SELECT id, name, email, phone, cpf, birth_date, password FROM users WHERE email = $1",
       [email]
     );
 
-    const userArray = users as any[];
+    const userArray = users;
     
     if (userArray.length === 0) {
       return NextResponse.json(

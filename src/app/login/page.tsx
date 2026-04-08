@@ -3,12 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./page.module.css";
 
 export default function LoginPage() {
   const { login, isLoading } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") || "/conta";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -19,7 +21,7 @@ export default function LoginPage() {
     
     try {
       await login(email, password);
-      router.push("/conta");
+      router.push(redirect);
     } catch (err) {
       setError("E-mail ou senha incorretos");
     }
@@ -83,7 +85,7 @@ export default function LoginPage() {
 
         <div className={styles.registerSection}>
           <p className={styles.registerText}>Não tem conta?</p>
-          <Link href="/conta/cadastro" className={styles.registerButton}>
+          <Link href="/cadastro" className={styles.registerButton}>
             Criar Conta
           </Link>
         </div>

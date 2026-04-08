@@ -14,29 +14,31 @@ export async function POST(request: NextRequest) {
 
     const pool = getPool();
     
-    const [existing] = await pool.execute(
-      "SELECT id FROM users WHERE email = ?",
+    const [existing]: any = await pool.execute(
+      "SELECT id FROM users WHERE email = $1",
       [email]
     );
 
-    if ((existing as any[]).length > 0) {
+    if (existing.length > 0) {
       return NextResponse.json(
         { error: "E-mail já cadastrado" },
         { status: 400 }
       );
     }
 
-    const [result]: any = await pool.execute(
-      "INSERT INTO users (name, email, password, phone, cpf) VALUES (?, ?, ?, ?, ?)",
+    const [insertResult]: any = await pool.execute(
+      "INSERT INTO users (name, email, password, phone, cpf) VALUES ($1, $2, $3, $4, $5) RETURNING id",
       [name, email, password, phone || null, cpf || null]
     );
 
-    const [users] = await pool.execute(
-      "SELECT id, name, email, phone, cpf, birth_date FROM users WHERE id = ?",
-      [result.insertId]
+    const newUserId = insertResult[0].id;
+
+    const [users]: any = await pool.execute(
+      "SELECT id, name, email, phone, cpf, birth_date FROM users WHERE id = $1",
+      [newUserId]
     );
 
-    const user = (users as any[])[0];
+    const user = users[0];
 
     return NextResponse.json({
       success: true,
@@ -64,14 +66,14 @@ export async function GET(request: NextRequest) {
     const pool = getPool();
 
     if (email) {
-      const [users] = await pool.execute(
-        "SELECT id, name, email, phone, cpf, birth_date FROM users WHERE email = ?",
+      const [users]: any = await pool.execute(
+        "SELECT id, name, email, phone, cpf, birth_date FROM users WHERE email = $1",
         [email]
       );
-      return NextResponse.json({ users: users });
+      return NextResponse.json({ users });
     }
 
-    const [users] = await pool.execute(
+    const [users]: any = await pool.execute(
       "SELECT id, name, email, phone, cpf, birth_date FROM users"
     );
 

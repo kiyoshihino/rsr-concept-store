@@ -4,7 +4,7 @@ import { getPool } from "@/lib/db";
 export async function GET() {
   try {
     const pool = getPool();
-    const [orders] = await pool.execute("SELECT * FROM orders ORDER BY created_at DESC");
+    const [orders]: any = await pool.execute("SELECT * FROM orders ORDER BY created_at DESC");
     return NextResponse.json({ orders });
   } catch (error) {
     console.error("Error fetching orders:", error);
@@ -16,7 +16,7 @@ export async function PUT(request: NextRequest) {
   try {
     const { orderId, status } = await request.json();
     const pool = getPool();
-    await pool.execute("UPDATE orders SET status = ? WHERE id = ?", [status, orderId]);
+    await pool.execute("UPDATE orders SET status = $1 WHERE id = $2", [status, orderId]);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error updating order:", error);

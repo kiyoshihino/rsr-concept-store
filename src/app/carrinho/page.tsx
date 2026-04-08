@@ -96,9 +96,11 @@ export default function CartPage() {
               <span>Total</span>
               <span>R$ {totalPrice.toFixed(2).replace(".", ",")}</span>
             </div>
-            <button className={styles.checkoutButton}>
-              Finalizar Compra
-            </button>
+            <Link href="/checkout" className={styles.checkoutLink}>
+              <button className={styles.checkoutButton}>
+                Finalizar Compra
+              </button>
+            </Link>
             <button className={styles.clearButton} onClick={clearCart}>
               Limpar Carrinho
             </button>

@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export async function GET(request: NextRequest) {
   try {
     const pool = getPool();
-    const [products] = await pool.execute("SELECT * FROM products ORDER BY created_at DESC");
+    const [products]: any = await pool.execute("SELECT * FROM products ORDER BY created_at DESC");
     return NextResponse.json({ products });
   } catch (error) {
     console.error("Erro ao buscar produtos:", error);

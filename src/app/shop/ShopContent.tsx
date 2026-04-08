@@ -1,19 +1,42 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import ProductGrid from "@/components/ProductGrid";
-import { products, categories } from "@/data/products";
+import { categories } from "@/data/products";
 import styles from "./shop.module.css";
+import { Product } from "@/data/products";
 
 export default function ShopContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
   
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>(
     categoryParam || "all"
   );
   const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch("/api/products");
+        if (!response.ok) throw new Error("Falha ao carregar produtos");
+        const data = await response.json();
+        setProducts(data.products || []);
+      } catch (err) {
+        console.error(err);
+        setError("Não foi possível carregar os produtos. Tente novamente mais tarde.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const filteredProducts = useMemo(() => {
     let filtered = products;
@@ -32,7 +55,29 @@ export default function ShopContent() {
     }
 
     return filtered;
-  }, [selectedCategory, searchQuery]);
+  }, [products, selectedCategory, searchQuery]);
+
+  if (isLoading) {
+    return (
+      <div className={styles.page}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Nossa Coleção</h1>
+        </div>
+        <div className={styles.loading}>Carregando coleção premium...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.page}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Nossa Coleção</h1>
+        </div>
+        <div className={styles.error}>{error}</div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.page}>
@@ -105,3 +150,4 @@ export default function ShopContent() {
     </div>
   );
 }
+

@@ -8,7 +8,7 @@ export async function GET(
   try {
     const { id } = await params;
     const pool = getPool();
-    const [products]: any = await pool.execute("SELECT * FROM products WHERE id = ?", [id]);
+    const [products]: any = await pool.execute("SELECT * FROM products WHERE id = $1", [id]);
     
     if (products.length === 0) {
       return NextResponse.json({ error: "Produto não encontrado" }, { status: 404 });
@@ -32,8 +32,8 @@ export async function PUT(
 
     const pool = getPool();
     await pool.execute(
-      `UPDATE products SET name = ?, price = ?, category = ?, description = ?, 
-       image = ?, stock = ?, is_featured = ? WHERE id = ?`,
+      `UPDATE products SET name = $1, price = $2, category = $3, description = $4, 
+       image = $5, stock = $6, is_featured = $7 WHERE id = $8`,
       [name, price, category, description, image, stock, is_featured, id]
     );
 
@@ -51,7 +51,7 @@ export async function DELETE(
   try {
     const { id } = await params;
     const pool = getPool();
-    await pool.execute("DELETE FROM products WHERE id = ?", [id]);
+    await pool.execute("DELETE FROM products WHERE id = $1", [id]);
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -13,8 +13,8 @@ export async function GET(request: NextRequest) {
     }
 
     const pool = getPool();
-    const [addresses] = await pool.execute(
-      "SELECT * FROM addresses WHERE user_id = ? ORDER BY is_default DESC, created_at DESC",
+    const [addresses]: any = await pool.execute(
+      "SELECT * FROM addresses WHERE user_id = $1 ORDER BY is_default DESC, created_at DESC",
       [userId]
     );
 
@@ -43,20 +43,22 @@ export async function POST(request: NextRequest) {
 
     if (isDefault) {
       await pool.execute(
-        "UPDATE addresses SET is_default = false WHERE user_id = ?",
+        "UPDATE addresses SET is_default = false WHERE user_id = $1",
         [userId]
       );
     }
 
-    const [result]: any = await pool.execute(
+    const [insertResult]: any = await pool.execute(
       `INSERT INTO addresses (user_id, label, street, number, complement, neighborhood, city, state, cep, is_default) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`,
       [userId, label, street, number, complement || null, neighborhood, city, state, cep, isDefault || false]
     );
 
-    const [addresses] = await pool.execute(
-      "SELECT * FROM addresses WHERE id = ?",
-      [result.insertId]
+    const newAddressId = insertResult[0].id;
+
+    const [addresses]: any = await pool.execute(
+      "SELECT * FROM addresses WHERE id = $1",
+      [newAddressId]
     );
 
     return NextResponse.json({
@@ -87,19 +89,19 @@ export async function PUT(request: NextRequest) {
 
     if (isDefault) {
       await pool.execute(
-        "UPDATE addresses SET is_default = false WHERE user_id = ?",
+        "UPDATE addresses SET is_default = false WHERE user_id = $1",
         [userId]
       );
     }
 
     await pool.execute(
-      `UPDATE addresses SET label = ?, street = ?, number = ?, complement = ?, neighborhood = ?, city = ?, state = ?, cep = ?, is_default = ? 
-       WHERE id = ? AND user_id = ?`,
+      `UPDATE addresses SET label = $1, street = $2, number = $3, complement = $4, neighborhood = $5, city = $6, state = $7, cep = $8, is_default = $9 
+       WHERE id = $10 AND user_id = $11`,
       [label, street, number, complement || null, neighborhood, city, state, cep, isDefault || false, id, userId]
     );
 
-    const [addresses] = await pool.execute(
-      "SELECT * FROM addresses WHERE id = ?",
+    const [addresses]: any = await pool.execute(
+      "SELECT * FROM addresses WHERE id = $1",
       [id]
     );
 
@@ -130,7 +132,7 @@ export async function DELETE(request: NextRequest) {
 
     const pool = getPool();
     await pool.execute(
-      "DELETE FROM addresses WHERE id = ? AND user_id = ?",
+      "DELETE FROM addresses WHERE id = $1 AND user_id = $2",
       [id, userId]
     );
 

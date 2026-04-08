@@ -14,12 +14,12 @@ export async function GET(request: NextRequest) {
 
     const pool = getPool();
     
-    const [orders] = await pool.execute(
+    const [orders]: any = await pool.execute(
       `SELECT o.*, 
         a.street, a.number, a.complement, a.neighborhood, a.city, a.state, a.cep
        FROM orders o
        LEFT JOIN addresses a ON o.shipping_address_id = a.id
-       WHERE o.user_id = ?
+       WHERE o.user_id = $1
        ORDER BY o.created_at DESC`,
       [userId]
     );
@@ -27,8 +27,8 @@ export async function GET(request: NextRequest) {
     const ordersArray = orders as any[];
     
     for (const order of ordersArray) {
-      const [items] = await pool.execute(
-        "SELECT * FROM order_items WHERE order_id = ?",
+      const [items]: any = await pool.execute(
+        "SELECT * FROM order_items WHERE order_id = $1",
         [order.id]
       );
       order.items = items;
@@ -60,15 +60,15 @@ export async function POST(request: NextRequest) {
 
     await pool.execute(
       `INSERT INTO orders (id, user_id, status, total, shipping_address_id) 
-       VALUES (?, ?, 'processing', ?, ?)`,
+       VALUES ($1, $2, 'processing', $3, $4)`,
       [orderId, userId, total, shippingAddressId || null]
     );
 
     for (const item of items) {
       await pool.execute(
         `INSERT INTO order_items (order_id, product_id, product_name, quantity, price, image) 
-         VALUES (?, ?, ?, ?, ?, ?)`,
-        [orderId, item.productId, item.name, item.quantity, item.price, item.image || null]
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+        [orderId, item.productId || null, item.name, item.quantity, item.price, item.image || null]
       );
     }
 

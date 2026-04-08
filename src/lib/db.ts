@@ -1,35 +1,31 @@
-import mysql from "mysql2/promise";
+import { sql } from "@vercel/postgres";
 
-const dbConfig = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-  connectTimeout: 10000,
+export async function query<T>(query: string, params?: unknown[]): Promise<T[]> {
+  try {
+    // Note: Vercel Postgres uses $1, $2, etc. for parameters
+    const { rows } = await sql.query(query, params);
+    return rows as T[];
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to execute database query.");
+  }
+}
+
+// Helper to handle the "execute" pattern from mysql2 in as few code changes as possible
+export async function execute(queryStr: string, params?: unknown[]) {
+  try {
+    const { rows, fields } = await sql.query(queryStr, params);
+    return [rows, fields];
+  } catch (error) {
+    console.error("Database Execute Error:", error);
+    throw error;
+  }
+}
+
+export const getPool = () => {
+  return {
+    execute: (queryStr: string, params?: unknown[]) => execute(queryStr, params),
+  };
 };
 
-let pool: mysql.Pool | null = null;
-
-export function getPool() {
-  if (!pool) {
-    try {
-      pool = mysql.createPool(dbConfig);
-      console.log("Pool de conexão criado");
-    } catch (error) {
-      console.error("Erro ao criar pool:", error);
-      throw error;
-    }
-  }
-  return pool;
-}
-
-export async function query<T>(sql: string, params?: unknown[]): Promise<T> {
-  const pool = getPool();
-  const [rows] = await pool.execute(sql, params as never);
-  return rows as T;
-}
-
-export default getPool();
+export default { query, execute, getPool };

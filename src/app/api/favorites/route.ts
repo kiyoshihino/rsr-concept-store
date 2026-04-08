@@ -13,10 +13,10 @@ export async function GET(request: NextRequest) {
     }
 
     const pool = getPool();
-    const [favorites] = await pool.execute(
+    const [favorites]: any = await pool.execute(
       `SELECT p.* FROM favorites f
        JOIN products p ON f.product_id = p.id
-       WHERE f.user_id = ?
+       WHERE f.user_id = $1
        ORDER BY f.created_at DESC`,
       [userId]
     );
@@ -44,21 +44,21 @@ export async function POST(request: NextRequest) {
 
     const pool = getPool();
 
-    const [existing] = await pool.execute(
-      "SELECT id FROM favorites WHERE user_id = ? AND product_id = ?",
+    const [existing]: any = await pool.execute(
+      "SELECT id FROM favorites WHERE user_id = $1 AND product_id = $2",
       [userId, productId]
     );
 
-    if ((existing as any[]).length > 0) {
+    if (existing.length > 0) {
       await pool.execute(
-        "DELETE FROM favorites WHERE user_id = ? AND product_id = ?",
+        "DELETE FROM favorites WHERE user_id = $1 AND product_id = $2",
         [userId, productId]
       );
       return NextResponse.json({ success: true, isFavorite: false });
     }
 
     await pool.execute(
-      "INSERT INTO favorites (user_id, product_id) VALUES (?, ?)",
+      "INSERT INTO favorites (user_id, product_id) VALUES ($1, $2)",
       [userId, productId]
     );
 

@@ -1,11 +1,11 @@
 "use client";
 
-import { use } from "react";
+import { use, useState, useEffect } from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { products } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import styles from "./product.module.css";
+import { Product } from "@/data/products";
 
 interface ProductContentProps {
   params: Promise<{ id: string }>;
@@ -15,9 +15,40 @@ export default function ProductContent({ params }: ProductContentProps) {
   const { id } = use(params);
   const { addToCart } = useCart();
   
-  const product = products.find((p) => p.id === id);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  if (!product) {
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch(`/api/products/${id}`);
+        if (response.status === 404) {
+          setError(true);
+          return;
+        }
+        if (!response.ok) throw new Error("Falha ao carregar produto");
+        const data = await response.json();
+        setProduct(data.product);
+      } catch (err) {
+        console.error(err);
+        setError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchProduct();
+    }
+  }, [id]);
+
+  if (isLoading) {
+    return <div className={styles.loading}>Carregando detalhes do produto...</div>;
+  }
+
+  if (error || !product) {
     notFound();
   }
 
@@ -71,3 +102,4 @@ export default function ProductContent({ params }: ProductContentProps) {
     </div>
   );
 }
+

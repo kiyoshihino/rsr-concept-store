@@ -194,6 +194,11 @@
   font-size: var(--text-lg);
 }
 
+.checkoutLink {
+  display: block;
+  text-decoration: none;
+}
+
 .checkoutButton {
   width: 100%;
   margin-top: var(--space-xl);
