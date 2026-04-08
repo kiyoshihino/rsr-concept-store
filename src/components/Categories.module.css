@@ -1,0 +1,151 @@
+.categories {
+  padding: var(--space-4xl) var(--space-lg);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+}
+
+.label {
+  display: inline-block;
+  font-family: var(--font-accent);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--color-terracotta);
+  margin-bottom: var(--space-md);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  color: var(--color-forest);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  display: block;
+}
+
+.imageWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.card:hover .image {
+  transform: scale(1.1);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(45, 74, 62, 0.8), transparent);
+}
+
+.content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-xl);
+  color: var(--color-cream);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-xs);
+}
+
+.description {
+  font-size: var(--text-base);
+  opacity: 0.85;
+  margin-bottom: var(--space-md);
+}
+
+.link {
+  font-family: var(--font-accent);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all var(--transition-base);
+}
+
+.card:hover .link {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 640px) {
+  .categories {
+    padding: var(--space-2xl) var(--space-md);
+  }
+
+  .header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .label {
+    font-size: var(--text-xs);
+  }
+
+  .title {
+    font-size: var(--text-2xl);
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .card {
+    aspect-ratio: 1;
+  }
+
+  .content {
+    padding: var(--space-lg);
+  }
+
+  .name {
+    font-size: var(--text-xl);
+  }
+
+  .description {
+    font-size: var(--text-sm);
+    display: none;
+  }
+
+  .link {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

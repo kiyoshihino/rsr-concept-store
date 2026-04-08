@@ -1,0 +1,216 @@
+.carousel {
+  position: relative;
+  height: 90vh;
+  min-height: 500px;
+  overflow: hidden;
+  background: var(--color-forest);
+}
+
+.slideContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.45);
+}
+
+.logoOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 1s ease forwards;
+}
+
+.logoText {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 400;
+  color: var(--color-cream);
+  letter-spacing: 0.1em;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  line-height: 1;
+}
+
+.logoSubtext {
+  font-family: var(--font-accent);
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+  color: var(--color-terracotta);
+  margin-top: var(--space-sm);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.logoLines {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logoLine1,
+.logoLine2 {
+  font-family: var(--font-accent);
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--color-terracotta);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+}
+
+.logoTagline {
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+  color: var(--color-cream);
+  opacity: 0.9;
+  margin-top: var(--space-lg);
+  letter-spacing: 0.1em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  z-index: 10;
+  transition: all var(--transition-base);
+  backdrop-filter: blur(8px);
+}
+
+.navButton:hover {
+  background: var(--color-terracotta);
+  border-color: var(--color-terracotta);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.navButton.prev {
+  left: var(--space-xl);
+}
+
+.navButton.next {
+  right: var(--space-xl);
+}
+
+.dots {
+  position: absolute;
+  bottom: var(--space-2xl);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-sm);
+  z-index: 10;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.dot:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.dot.activeDot {
+  background: var(--color-white);
+  transform: scale(1.2);
+}
+
+@media (max-width: 640px) {
+  .carousel {
+    height: 60vh;
+    min-height: 400px;
+  }
+
+  .navButton {
+    width: 44px;
+    height: 44px;
+    opacity: 0.8;
+  }
+
+  .navButton.prev {
+    left: var(--space-sm);
+  }
+
+  .navButton.next {
+    right: var(--space-sm);
+  }
+
+  .navButton:active {
+    opacity: 1;
+  }
+
+  .logoText {
+    font-size: 2.5rem;
+  }
+
+  .logoSubtext {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+  }
+
+  .logoTagline {
+    font-size: 0.75rem;
+    margin-top: var(--space-sm);
+  }
+
+  .dots {
+    bottom: var(--space-md);
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

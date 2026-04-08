@@ -1,0 +1,33 @@
+.container { max-width: 1200px; }
+.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
+.title { font-family: var(--font-display); font-size: 1.8rem; color: var(--color-charcoal); margin-bottom: 4px; }
+.subtitle { font-family: var(--font-body); font-size: 0.95rem; color: var(--color-stone); }
+
+.addButton { background: linear-gradient(135deg, var(--color-terracotta), #D4825C); color: white; border: none; padding: 12px 24px; border-radius: 10px; font-family: var(--font-accent); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.3s; }
+.addButton:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(196, 112, 75, 0.3); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+.card { background: var(--color-white); border-radius: 20px; padding: 28px; text-align: center; border: 1px solid #EAEAE8; transition: all 0.3s; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(45, 74, 62, 0.1); }
+
+.cardIcon { font-size: 2.2rem; color: var(--color-terracotta); margin-bottom: 12px; }
+.cardName { font-family: var(--font-display); font-size: 1.2rem; color: var(--color-charcoal); margin-bottom: 4px; }
+.cardSlug { font-family: var(--font-accent); font-size: 0.8rem; color: var(--color-stone); margin-bottom: 16px; }
+
+.deleteBtn { background: #FEF2F2; color: #DC2626; border: none; padding: 10px 20px; border-radius: 8px; font-family: var(--font-accent); font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+.deleteBtn:hover { background: #DC2626; color: white; }
+
+.modalOverlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(4px); padding: 20px; }
+.modal { background: var(--color-white); border-radius: 24px; width: 100%; max-width: 440px; box-shadow: 0 24px 80px rgba(0,0,0,0.2); }
+.modalHeader { display: flex; justify-content: space-between; align-items: center; padding: 24px 28px; border-bottom: 1px solid #EAEAE8; }
+.modalHeader h2 { font-family: var(--font-display); font-size: 1.4rem; color: var(--color-charcoal); }
+.closeBtn { width: 36px; height: 36px; border-radius: 50%; background: var(--color-mist); border: none; font-size: 1rem; color: var(--color-stone); cursor: pointer; }
+.modalBody { padding: 28px; }
+.formGroup { margin-bottom: 18px; }
+.formGroup label { display: block; margin-bottom: 8px; font-family: var(--font-accent); font-size: 0.85rem; color: var(--color-charcoal); font-weight: 500; }
+.formGroup input { width: 100%; padding: 12px 16px; border: 1px solid #EAEAE8; border-radius: 10px; font-family: var(--font-body); font-size: 0.95rem; transition: all 0.3s; }
+.formGroup input:focus { outline: none; border-color: var(--color-terracotta); box-shadow: 0 0 0 3px rgba(196, 112, 75, 0.1); }
+.modalFooter { display: flex; gap: 12px; padding: 0 28px 28px; }
+.cancelBtn, .saveBtn { flex: 1; padding: 14px 24px; border-radius: 10px; font-family: var(--font-accent); font-size: 0.95rem; font-weight: 500; cursor: pointer; }
+.cancelBtn { background: var(--color-mist); border: 1px solid #EAEAE8; color: var(--color-stone); }
+.saveBtn { background: linear-gradient(135deg, var(--color-terracotta), #D4825C); border: none; color: white; }

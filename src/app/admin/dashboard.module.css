@@ -1,0 +1,319 @@
+.container {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--color-forest) 0%, #1E3329 100%);
+  border-radius: 24px;
+  padding: 40px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(196, 112, 75, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+}
+
+.greeting {
+  display: inline-block;
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-terracotta);
+  margin-bottom: 8px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--color-cream);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: rgba(245, 240, 232, 0.6);
+}
+
+.heroDecor {
+  font-size: 6rem;
+  color: rgba(196, 112, 75, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.statCard {
+  background: var(--color-white);
+  border-radius: 20px;
+  padding: 28px;
+  position: relative;
+  border: 1px solid #EAEAE8;
+  transition: all 0.3s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(45, 74, 62, 0.1);
+}
+
+.statHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.statIcon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1.3rem;
+}
+
+.statCard.products .statIcon {
+  background: linear-gradient(135deg, var(--color-terracotta), #D4825C);
+  color: white;
+}
+
+.statCard.orders .statIcon {
+  background: linear-gradient(135deg, var(--color-forest), #3D5F50);
+  color: white;
+}
+
+.statCard.customers .statIcon {
+  background: linear-gradient(135deg, var(--color-sage), #6B8B5E);
+  color: white;
+}
+
+.statTrend {
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  color: var(--color-stone);
+}
+
+.statValue {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--color-charcoal);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.statLabel {
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  color: var(--color-stone);
+  display: block;
+  margin-bottom: 16px;
+}
+
+.statLink {
+  font-family: var(--font-accent);
+  font-size: 0.8rem;
+  color: var(--color-terracotta);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.statLink:hover {
+  text-decoration: underline;
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--color-charcoal);
+  margin-bottom: 20px;
+}
+
+.actionsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.actionCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  border-radius: 16px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.actionCard.terracotta {
+  background: linear-gradient(135deg, rgba(196, 112, 75, 0.08), rgba(196, 112, 75, 0.04));
+  border-color: rgba(196, 112, 75, 0.2);
+}
+
+.actionCard.terracotta:hover {
+  background: var(--color-terracotta);
+}
+
+.actionCard.terracotta:hover .actionIcon,
+.actionCard.terracotta:hover .actionLabel {
+  color: white;
+}
+
+.actionCard.forest {
+  background: linear-gradient(135deg, rgba(45, 74, 62, 0.08), rgba(45, 74, 62, 0.04));
+  border-color: rgba(45, 74, 62, 0.2);
+}
+
+.actionCard.forest:hover {
+  background: var(--color-forest);
+}
+
+.actionCard.forest:hover .actionIcon,
+.actionCard.forest:hover .actionLabel {
+  color: white;
+}
+
+.actionCard.gold {
+  background: linear-gradient(135deg, rgba(184, 134, 11, 0.08), rgba(184, 134, 11, 0.04));
+  border-color: rgba(184, 134, 11, 0.2);
+}
+
+.actionCard.gold:hover {
+  background: var(--color-gold);
+}
+
+.actionCard.gold:hover .actionIcon,
+.actionCard.gold:hover .actionLabel {
+  color: white;
+}
+
+.actionCard.moss {
+  background: linear-gradient(135deg, rgba(107, 123, 94, 0.08), rgba(107, 123, 94, 0.04));
+  border-color: rgba(107, 123, 94, 0.2);
+}
+
+.actionCard.moss:hover {
+  background: var(--color-moss);
+}
+
+.actionCard.moss:hover .actionIcon,
+.actionCard.moss:hover .actionLabel {
+  color: white;
+}
+
+.actionIcon {
+  font-size: 1.4rem;
+  color: var(--color-terracotta);
+  transition: color 0.3s;
+}
+
+.actionCard.forest .actionIcon { color: var(--color-forest); }
+.actionCard.gold .actionIcon { color: var(--color-gold); }
+.actionCard.moss .actionIcon { color: var(--color-moss); }
+
+.actionLabel {
+  font-family: var(--font-accent);
+  font-size: 0.9rem;
+  color: var(--color-charcoal);
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.infoCard {
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid #EAEAE8;
+}
+
+.infoIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-mist);
+  border-radius: 12px;
+  font-size: 1.3rem;
+  color: var(--color-forest);
+}
+
+.infoContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoTitle {
+  font-family: var(--font-accent);
+  font-size: 0.8rem;
+  color: var(--color-stone);
+}
+
+.infoValue {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--color-charcoal);
+}
+
+@media (max-width: 1024px) {
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+  .actionsGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .statsGrid { grid-template-columns: 1fr; gap: 16px; }
+  .actionsGrid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .hero { padding: 24px; border-radius: 16px; }
+  .title { font-size: 1.4rem; }
+  .subtitle { font-size: 0.9rem; }
+  .infoGrid { grid-template-columns: 1fr; }
+  .heroDecor { display: none; }
+  
+  .statCard { padding: 20px; border-radius: 16px; }
+  .statValue { font-size: 1.8rem; }
+  .statIcon { width: 48px; height: 48px; font-size: 1.2rem; }
+  
+  .actionCard { padding: 16px; border-radius: 12px; }
+  .actionLabel { font-size: 0.8rem; }
+}
