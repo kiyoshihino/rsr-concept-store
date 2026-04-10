@@ -28,13 +28,30 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { name, price, category, description, image, stock, is_featured } = body;
+    const { 
+      name, price, category, description, image, stock, is_featured,
+      weight, length, width, height
+    } = body;
 
     const pool = getPool();
     await pool.execute(
       `UPDATE products SET name = $1, price = $2, category = $3, description = $4, 
-       image = $5, stock = $6, is_featured = $7 WHERE id = $8`,
-      [name, price, category, description, image, stock, is_featured, id]
+       image = $5, stock = $6, is_featured = $7, weight = $8, length = $9, 
+       width = $10, height = $11 WHERE id = $12`,
+      [
+        name, 
+        price, 
+        category, 
+        description, 
+        image, 
+        stock, 
+        is_featured,
+        weight || 0.500,
+        length || 20.00,
+        width || 15.00,
+        height || 10.00,
+        id
+      ]
     );
 
     return NextResponse.json({ success: true });

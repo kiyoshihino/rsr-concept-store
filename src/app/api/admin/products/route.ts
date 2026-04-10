@@ -15,13 +15,28 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, price, category, description, image, stock, is_featured } = body;
+    const { 
+      name, price, category, description, image, stock, is_featured, 
+      weight, length, width, height 
+    } = body;
 
     const pool = getPool();
     const [insertResult]: any = await pool.execute(
-      `INSERT INTO products (name, price, category, description, image, stock, is_featured) 
-       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`,
-      [name, price, category, description || "", image || "", stock || 0, is_featured || false]
+      `INSERT INTO products (name, price, category, description, image, stock, is_featured, weight, length, width, height) 
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`,
+      [
+        name, 
+        price, 
+        category, 
+        description || "", 
+        image || "", 
+        stock || 0, 
+        is_featured || false,
+        weight || 0.500,
+        length || 20.00,
+        width || 15.00,
+        height || 10.00
+      ]
     );
 
     return NextResponse.json({ success: true, id: insertResult[0].id });

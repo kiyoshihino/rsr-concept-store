@@ -7,6 +7,10 @@ export interface Product {
   description: string;
   materials?: string;
   care?: string;
+  weight?: number;
+  length?: number;
+  width?: number;
+  height?: number;
 }
 
 export const products: Product[] = [

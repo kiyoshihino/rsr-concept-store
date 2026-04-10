@@ -12,6 +12,10 @@ interface Product {
   stock: number;
   is_featured: boolean;
   description?: string;
+  weight?: number;
+  length?: number;
+  width?: number;
+  height?: number;
 }
 
 export default function AdminProducts() {
@@ -73,9 +77,13 @@ export default function AdminProducts() {
       price: parseFloat(formData.get("price") as string),
       category: formData.get("category"),
       description: formData.get("description"),
-      image: imageUrl,
+      image: imageUrl || (editingProduct?.image || ""),
       stock: parseInt(formData.get("stock") as string),
       is_featured: formData.get("is_featured") === "on",
+      weight: parseFloat(formData.get("weight") as string),
+      length: parseFloat(formData.get("length") as string),
+      width: parseFloat(formData.get("width") as string),
+      height: parseFloat(formData.get("height") as string),
     };
     try {
       const url = editingProduct ? `/api/admin/products/${editingProduct.id}` : "/api/admin/products";
@@ -179,6 +187,28 @@ export default function AdminProducts() {
                 <div className={styles.formGroup}>
                   <label>Estoque</label>
                   <input type="number" name="stock" defaultValue={editingProduct?.stock || 0} required />
+                </div>
+              </div>
+
+              <div className={styles.formSection}>
+                <h3>Logística e Frete</h3>
+                <div className={styles.formGrid}>
+                  <div className={styles.formGroup}>
+                    <label>Peso (kg)</label>
+                    <input type="number" name="weight" step="0.001" defaultValue={editingProduct?.weight || 0.500} required />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Comprimento (cm)</label>
+                    <input type="number" name="length" step="0.1" defaultValue={editingProduct?.length || 20.0} required />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Largura (cm)</label>
+                    <input type="number" name="width" step="0.1" defaultValue={editingProduct?.width || 15.0} required />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Altura (cm)</label>
+                    <input type="number" name="height" step="0.1" defaultValue={editingProduct?.height || 10.0} required />
+                  </div>
                 </div>
               </div>
               <div className={styles.formGroup}>

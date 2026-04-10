@@ -310,6 +310,23 @@
   cursor: pointer;
 }
 
+.formSection {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #F0F0EE;
+  margin-bottom: 20px;
+}
+
+.formSection h3 {
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-stone);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
 .checkbox {
   display: flex !important;
   align-items: center;

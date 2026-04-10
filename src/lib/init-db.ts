@@ -38,10 +38,20 @@ export async function initDatabase() {
         image VARCHAR(500),
         stock INT DEFAULT 0,
         is_featured BOOLEAN DEFAULT false,
+        weight DECIMAL(10, 3) DEFAULT 0.500,
+        length DECIMAL(10, 2) DEFAULT 20.00,
+        width DECIMAL(10, 2) DEFAULT 15.00,
+        height DECIMAL(10, 2) DEFAULT 10.00,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `;
+
+    // Add physical fields if table already exists (migration)
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS weight DECIMAL(10, 3) DEFAULT 0.500`;
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS length DECIMAL(10, 2) DEFAULT 20.00`;
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS width DECIMAL(10, 2) DEFAULT 15.00`;
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS height DECIMAL(10, 2) DEFAULT 10.00`;
 
     // --- Tabela de endereços ---
     await sql`
