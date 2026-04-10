@@ -9,6 +9,7 @@ export interface User {
   phone: string;
   cpf: string;
   birthDate: string;
+  isAdmin?: boolean;
   address?: {
     street: string;
     number: string;
@@ -198,7 +199,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw new Error(data.error || "Erro ao fazer login");
     }
     
-    setUser(data.user);
+    setUser({ ...data.user, isAdmin: data.isAdmin });
     setIsLoading(false);
   };
 
@@ -222,6 +223,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = () => {
+    // Clear server-side session cookie
+    fetch(`${API_URL}/api/auth/logout`, { method: "POST" }).catch(() => {});
     setUser(null);
     setAddresses([]);
     setOrders([]);

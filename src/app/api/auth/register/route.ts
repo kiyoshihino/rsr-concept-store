@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
 import { getPool } from "@/lib/db";
 
 export async function POST(request: NextRequest) {
@@ -26,9 +27,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const hashedPassword = await bcrypt.hash(password, 12);
+
     const [insertResult]: any = await pool.execute(
       "INSERT INTO users (name, email, password, phone, cpf) VALUES ($1, $2, $3, $4, $5) RETURNING id",
-      [name, email, password, phone || null, cpf || null]
+      [name, email, hashedPassword, phone || null, cpf || null]
     );
 
     const newUserId = insertResult[0].id;

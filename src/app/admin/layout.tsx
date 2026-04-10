@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 import styles from "./layout.module.css";
 
 const menuItems = [
@@ -25,7 +26,14 @@ const bottomNavItems = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+    router.push("/");
+  };
 
   return (
     <div className={styles.container}>
@@ -59,6 +67,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <span>🌐</span>
             <span>Ver Site</span>
           </Link>
+          <button onClick={handleLogout} className={styles.logoutBtn}>
+            <span>↩</span>
+            <span>Sair</span>
+          </button>
           <div className={styles.version}>v1.0.0</div>
         </div>
       </aside>
@@ -73,10 +85,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           ☰
         </button>
         <div className={styles.mobileLogo}>
-          <span>✿</span>
-          <span>RSR</span>
-        </div>
-        <div className={styles.mobileUser}>A</div>
+            <span>✿</span>
+            <span>RSR</span>
+          </div>
+          <div className={styles.mobileUser}>
+            {user?.name?.charAt(0).toUpperCase() || "A"}
+          </div>
       </div>
 
       <main className={styles.main}>
@@ -86,6 +100,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <span>Painel Admin</span>
           </div>
           <div className={styles.topbarRight}>
+            <span className={styles.adminName}>{user?.name || "Admin"}</span>
             <span className={styles.adminBadge}>Admin</span>
           </div>
         </header>

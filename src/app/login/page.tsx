@@ -23,7 +23,7 @@ export default function LoginPage() {
       await login(email, password);
       router.push(redirect);
     } catch (err) {
-      setError("E-mail ou senha incorretos");
+      setError(err instanceof Error ? err.message : "E-mail ou senha incorretos");
     }
   };
 
@@ -90,9 +90,6 @@ export default function LoginPage() {
           </Link>
         </div>
 
-        <p className={styles.demoHint}>
-          Demo: Use qualquer e-mail e senha para testar
-        </p>
       </div>
     </div>
   );
