@@ -32,10 +32,12 @@ export default function Footer() {
           <div className={styles.links}>
             <h4 className={styles.heading}>Categorias</h4>
             <nav className={styles.nav}>
-              <Link href="/shop?category=Vestuário">Vestuário</Link>
+              <Link href="/shop?category=Moda Fitness">Moda Fitness</Link>
+              <Link href="/shop?category=T-Shirts">T-Shirts</Link>
+              <Link href="/shop?category=Uniforme Escolar">Uniforme Escolar</Link>
+              <Link href="/shop?category=Moletons">Moletons</Link>
               <Link href="/shop?category=Acessórios">Acessórios</Link>
-              <Link href="/shop?category=Decoração">Decoração</Link>
-              <Link href="/shop?category=Kits">Kits</Link>
+              <Link href="/shop?category=Couro">Couro</Link>
             </nav>
           </div>
 

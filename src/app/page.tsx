@@ -6,18 +6,11 @@ import ProductGrid from "@/components/ProductGrid";
 import Banner from "@/components/Banner";
 import Testimonials from "@/components/Testimonials";
 import Newsletter from "@/components/Newsletter";
-import { query } from "@/lib/db";
-import { Product } from "@/data/products";
+import { products } from "@/data/products";
 
-export default async function Home() {
-  const featuredProducts = await query<Product>(
-    "SELECT * FROM products WHERE is_featured = true LIMIT 4"
-  );
-  
-  const fitness = await query<Product>(
-    "SELECT * FROM products WHERE category = $1 LIMIT 4",
-    ["Vestuário"]
-  );
+export default function Home() {
+  const featuredProducts = products.slice(0, 4);
+  const fitness = products.filter(p => p.category === "Moda Fitness").slice(0, 4);
 
   return (
     <>
