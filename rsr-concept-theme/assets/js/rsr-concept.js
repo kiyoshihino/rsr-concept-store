@@ -5,36 +5,6 @@
 
 jQuery(document).ready(function($) {
     
-    // --- SIDE CART LOGIC ---
-    
-    const $drawer = $('.rsr-side-cart-drawer');
-    const $overlay = $('.rsr-side-cart-overlay');
-    const $cartBtn = $('.Header_cartButton'); // Nosso botão no header
-
-    function openCart() {
-        $drawer.addClass('active');
-        $overlay.addClass('active');
-        $('body').css('overflow', 'hidden');
-    }
-
-    function closeCart() {
-        $drawer.removeClass('active');
-        $overlay.removeClass('active');
-        $('body').css('overflow', '');
-    }
-
-    // Escutas
-    $cartBtn.on('click', function(e) {
-        e.preventDefault();
-        openCart();
-    });
-
-    $('#rsr-cart-close, .rsr-side-cart-overlay').on('click', closeCart);
-
-    // Abrir automaticamente ao adicionar item (WooCommerce Trigger)
-    $(document.body).on('added_to_cart', function() {
-        openCart();
-    });
 
     // --- SCROLL REVEAL LOGIC ---
     
@@ -53,6 +23,40 @@ jQuery(document).ready(function($) {
 
     $('[data-reveal]').each(function() {
         revealObserver.observe(this);
+    });
+
+    // --- SABBATH MODE LOGIC ---
+    
+    function showSabbathModal() {
+        $('#rsr-sabbath-modal').addClass('rsr-active');
+        $('body').css('overflow', 'hidden'); // Prevent scroll
+    }
+
+    function hideSabbathModal() {
+        $('#rsr-sabbath-modal').removeClass('rsr-active');
+        $('body').css('overflow', '');
+    }
+
+    // Intercept Add to Cart
+    $(document).on('click', '.add_to_cart_button, .single_add_to_cart_button, button[name="add-to-cart"]', function(e) {
+        if (typeof rsr_params !== 'undefined' && rsr_params.is_sabbath) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            showSabbathModal();
+            return false;
+        }
+    });
+
+    // Close Modal
+    $(document).on('click', '#rsr-close-sabbath, .rsr-modal-overlay', function() {
+        hideSabbathModal();
+    });
+
+    // Handle Escape key
+    $(document).on('keydown', function(e) {
+        if (e.key === "Escape") {
+            hideSabbathModal();
+        }
     });
 
     // --- SMOOTH SCROLL ---

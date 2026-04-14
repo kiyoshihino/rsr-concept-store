@@ -27,7 +27,7 @@ get_header(); ?>
         Com o tempo, percebemos que o conforto que proporcionávamos poderia abraçar <em>ainda mais as rotinas</em> das famílias. Foi então que expandimos o nosso universo.
       </p>
       <p class="sobre_text">
-        Hoje, não somos apenas a sua casa do artesanato elevado. Nossa loja é o destino final para montar um life-style completo: produzimos <strong>Moda Fitness</strong> de alta performance, coleções de <strong>T-shirts em malha 100% Algodão</strong> (super versáteis!), confeccionamos com durabilidade os <strong>Uniformes Escolares</strong> para o dia a dia pesado, além de <strong>Moletons e Acessórios</strong> que transitam em qualquer estação.
+        Hoje, não somos apenas a sua casa do artesanato elevado. Nossa loja é o destino final para montar um life-style completo: produzimos <strong>Moda Fitness</strong> de alta performance, coleções de <strong>T-shirts em malha 100% Algodão</strong> (super versáteis!), confeccionamos com durabilidade os <strong>Uniformes Escolares</strong> para o dia a dia pesado, além de <strong>Moletons, Acessórios e itens Healthy</strong> que transitam em qualquer estação.
       </p>
 
       <div class="sobre_values">

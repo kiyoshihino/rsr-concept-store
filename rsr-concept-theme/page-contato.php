@@ -12,11 +12,11 @@ get_header(); ?>
     <div class="contato_info">
       <div class="contato_infoItem">
         <h3>Email</h3>
-        <p>hello@rsrconcept.com</p>
+        <p><a href="mailto:rborimsouza@gmail.com" style="color: inherit; text-decoration: none;">rborimsouza@gmail.com</a></p>
       </div>
       <div class="contato_infoItem">
         <h3>WhatsApp</h3>
-        <p>(11) 99999-9999</p>
+        <p><a href="https://wa.me/5543999949787" target="_blank" style="color: inherit; text-decoration: none;">(43) 9 9994-9787</a></p>
       </div>
       <div class="contato_infoItem">
         <h3>Horário</h3>
@@ -24,7 +24,7 @@ get_header(); ?>
       </div>
       <div class="contato_infoItem">
         <h3>Localização</h3>
-        <p>São Paulo, SP</p>
+        <p>Londrina-PR</p>
       </div>
     </div>
 

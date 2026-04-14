@@ -1,0 +1,13 @@
+<svg width="300" height="120" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&amp;family=Josefin+Sans:wght@300&amp;display=swap');
+      .rsr { font-family: 'Playfair Display', serif; font-size: 80px; font-weight: 500; }
+      .concept { font-family: 'Josefin Sans', sans-serif; font-size: 16px; letter-spacing: 0.5em; text-transform: uppercase; }
+      .line { stroke: #C67B58; stroke-width: 1.5; }
+    </style>
+  </defs>
+  <text x="50%" y="70" text-anchor="middle" class="rsr" fill="#2C2C2C">RSR</text>
+  <line x1="40" y1="85" x2="260" y2="85" class="line" />
+  <text x="50%" y="105" text-anchor="middle" class="concept" fill="#2C2C2C">CONCEPT STORE</text>
+</svg>

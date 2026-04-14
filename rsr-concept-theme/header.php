@@ -28,11 +28,8 @@
     <div class="Header_container">
     <nav class="Header_nav">
         <a href="<?php echo home_url('/'); ?>" class="Header_logo">
-        <span class="Header_logoText">RSR</span>
-        <div class="Header_logoLines">
-            <span class="Header_logoLine1">Concept</span>
-            <span class="Header_logoLine2">Store</span>
-        </div>
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo-light.svg" alt="RSR Concept Store" class="Header_logoImage logo-light">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo-dark.svg" alt="RSR Concept Store" class="Header_logoImage logo-dark">
         </a>
     </nav>
 
@@ -88,18 +85,6 @@
     </div>
     </div>
 </header>
-
-<!-- Side Cart Drawer -->
-<div class="rsr-side-cart-overlay"></div>
-<div class="rsr-side-cart-drawer">
-    <div class="rsr-side-cart-header">
-        <h2>Seu Carrinho</h2>
-        <button id="rsr-cart-close">&times;</button>
-    </div>
-    <div class="rsr-side-cart-content">
-        <?php if ( function_exists('woocommerce_mini_cart') ) woocommerce_mini_cart(); ?>
-    </div>
-</div>
 <?php endif; ?>
 
 <main>

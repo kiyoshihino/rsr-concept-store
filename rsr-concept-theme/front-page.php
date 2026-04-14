@@ -32,8 +32,7 @@
     </div>
 
     <div class="HeroCarousel_logoOverlay">
-        <span class="HeroCarousel_logoText">RSR</span>
-        <span class="HeroCarousel_logoSubtext">Concept Store</span>
+        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo-light.svg" alt="RSR Concept Store" class="HeroCarousel_logoImage">
         <span class="HeroCarousel_logoTagline">Estilo para toda a vida</span>
     </div>
 
@@ -78,7 +77,7 @@
             <em style="color: var(--color-terracotta); font-style: italic;">Cada Instante</em>
         </h1>
         <p class="Hero_description" style="margin-top: 1rem;">
-            Desde a delicadeza ímpar do Artesanato em Tricô e Crochê até a performance da Moda Fitness e T-shirts 100% Algodão. O guarda-roupa inteligente da sua família passa por aqui.
+            Desde a delicadeza ímpar do Artesanato em Tricô e Crochê até a performance da Moda Fitness, T-shirts 100% Algodão e nossa nova linha Healthy. O guarda-roupa inteligente da sua família passa por aqui.
         </p>
     </div>
     <div class="Hero_imageWrapper">
@@ -143,8 +142,11 @@
             }
 
             $shop_url = function_exists('wc_get_page_id') ? get_permalink( wc_get_page_id( 'shop' ) ) : '#';
-            foreach($cats as $cat): ?>
-                <a href="<?php echo esc_url( add_query_arg('filter_cat', $cat['slug'], $shop_url) ); ?>" class="Categories_card">
+            foreach($cats as $cat): 
+                $link = get_term_link($cat['slug'], 'product_cat');
+                $cat_url = is_wp_error($link) ? add_query_arg('product_cat', $cat['slug'], $shop_url) : $link;
+            ?>
+                <a href="<?php echo esc_url( $cat_url ); ?>" class="Categories_card">
                     <div class="Categories_imageWrapper">
                         <img src="<?php echo esc_url($cat['img']); ?>" alt="" class="Categories_image" />
                         <div class="Categories_overlay"></div>
@@ -161,8 +163,8 @@
 
 <!-- Featured Products Loop -->
 <div class="container" style="padding: 4rem 2rem;" data-reveal>
-    <h2 style="font-family: var(--font-playfair); font-size: 2.5rem; text-align: left; margin-bottom: 3rem; color: var(--color-forest);">Peças em Destaque</h2>
-    <div class="ProductGrid_grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
+    <h2 class="FeaturedProducts_title" style="font-family: var(--font-playfair); font-size: 2.5rem; margin-bottom: 3rem; color: var(--color-forest);">Peças em Destaque</h2>
+    <div class="ProductGrid_grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; justify-content: center;">
         <?php
         if (class_exists('WooCommerce')) {
             $args = array(
